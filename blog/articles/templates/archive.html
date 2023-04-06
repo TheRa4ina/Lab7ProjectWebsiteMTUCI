@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head><link rel="stylesheet" href="{{STATIC_URL}}/static/article.css"></head>
+    <header>
+        <title>Архив статей</title>
+    <header>
+    <body class="archive">
+        <div class="header">
+            <div>
+                {% if request.user.is_authenticated %}
+                <a href="article/new/"><div class="post-title">Создать статью</div></a>
+                <a href="logout"><div class="post-title">Выйти из аккаунта</div><a>
+                {% else %}
+                <a href="login"><div class="post-title">Войти в аккаунт</div></a>
+                <a href="register"><div class="post-title">Регистрация</div></a>
+                {% endif %}
+            </div>
+        <img src= "https://abitur.mtuci.ru/bitrix/templates/modern_blue_s5/images/abitur_MTUCI-logo.png">
+        </div>
+    <div class="archive">
+        {% for post in posts %}
+            <div class="one-post">
+                <button class="fold-button" onlick=foldBtns()>Свернуть
+                </button>
+                <a href="/article/{{post.id}}">
+                    <h2 class="post-title">{{ post.title }}</h2>
+                </a>
+                <div class="article-info">
+                <div class="article-author">{{ post.author.username }}</div>
+                <div class="article-created-date">{{ post.created_date }}</div>
+                
+                <p class="article-text">{{ post.get_excerpt }}</p>
+                </div>
+        {% endfor %}
+    </div>
+    <script src="{{ STATIC_URL }}/static/js/helloworld.js"></script>
+    <script src="{{ STATIC_URL }}/static/js/fold-post.js"></script>
+    </body>
+</html>
